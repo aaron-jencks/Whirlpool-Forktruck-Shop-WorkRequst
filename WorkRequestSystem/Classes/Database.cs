@@ -57,6 +57,59 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
         /// </summary>
         public string FilePath { get => filePath; set => filePath = value; }
 
+        #region Equipment
+
+        /// <summary>
+        /// The current list of equipment numbers
+        /// </summary>
+        public List<string> EquipmentNumbers { get => GetEquipmentNumberList(); }
+
+        /// <summary>
+        /// The current list of equipment brands
+        /// </summary>
+        public List<string> EquipmentBrands { get => GetEquipmentBrandList(); }
+
+        /// <summary>
+        /// The current list of equipment serial numbers
+        /// </summary>
+        public List<string> EquipmentSerialNumbers { get => GetEquipmentSerialNumberList(); }
+
+        /// <summary>
+        /// The current list of equipment model numbers
+        /// </summary>
+        public List<string> EquipmentModelNumbers { get => GetEquipmentModelNumberList(); }
+
+        /// <summary>
+        /// The current list of equipment departments
+        /// </summary>
+        public List<string> EquipmentDepartments { get => GetEquipmentDepartmentList(); }
+
+        /// <summary>
+        /// The current list of equipment types
+        /// </summary>
+        public List<string> EquipmentTypes { get => GetEquipmentTypeList(); }
+
+        /// <summary>
+        /// The current list of equipment operators
+        /// </summary>
+        public List<string> EquipmentOperators { get => GetEquipmentOperatorList(); }
+
+        #endregion
+
+        #region Parts
+
+        /// <summary>
+        /// The current list of part names
+        /// </summary>
+        public List<string> PartNames { get => GetPartNames(); }
+
+        /// <summary>
+        /// The current list of part numbers
+        /// </summary>
+        public List<string> PartNumbers { get => GetPartNumbers(); }
+
+        #endregion
+
         #endregion
 
         #region Operator Methods
@@ -146,6 +199,131 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
         #endregion
 
         #region Methods
+
+        #region Equipment
+
+        /// <summary>
+        /// Gets the current list of equipment numbers
+        /// </summary>
+        /// <returns>Returns the list of equipment numbers as a List</returns>
+        private List<string> GetEquipmentNumberList()
+        {
+            List<string> temp = new List<string>(equipmentList.Count);
+            foreach (Equipment eq in equipmentList)
+                if(!temp.Contains(eq.EquipmentNumber))                  // Prevents duplicates
+                    temp.Add(eq.EquipmentNumber);
+            return temp;
+        }
+
+        /// <summary>
+        /// Gets the current list of equipment brands
+        /// </summary>
+        /// <returns>Returns the list of equipment brands as a List</returns>
+        private List<string> GetEquipmentBrandList()
+        {
+            List<string> temp = new List<string>(equipmentList.Count);
+            foreach (Equipment eq in equipmentList)
+                if (!temp.Contains(eq.Brand))                  // Prevents duplicates
+                    temp.Add(eq.Brand);
+            return temp;
+        }
+
+        /// <summary>
+        /// Gets the current list of equipment serial numbers
+        /// </summary>
+        /// <returns>Returns the list of equipment serial numbers as a List</returns>
+        private List<string> GetEquipmentSerialNumberList()
+        {
+            List<string> temp = new List<string>(equipmentList.Count);
+            foreach (Equipment eq in equipmentList)
+                if (!temp.Contains(eq.SerialNumber))                  // Prevents duplicates
+                    temp.Add(eq.SerialNumber);
+            return temp;
+        }
+
+        /// <summary>
+        /// Gets the current list of equipment model numbers
+        /// </summary>
+        /// <returns>Returns the list of equipment model numbers as a List</returns>
+        private List<string> GetEquipmentModelNumberList()
+        {
+            List<string> temp = new List<string>(equipmentList.Count);
+            foreach (Equipment eq in equipmentList)
+                if (!temp.Contains(eq.ModelNumber))                  // Prevents duplicates
+                    temp.Add(eq.ModelNumber);
+            return temp;
+        }
+
+        /// <summary>
+        /// Gets the current list of equipment departments
+        /// </summary>
+        /// <returns>Returns the list of equipment departments as a List</returns>
+        private List<string> GetEquipmentDepartmentList()
+        {
+            List<string> temp = new List<string>(equipmentList.Count);
+            foreach (Equipment eq in equipmentList)
+                if (!temp.Contains(eq.Department))                  // Prevents duplicates
+                    temp.Add(eq.Department);
+            return temp;
+        }
+
+        /// <summary>
+        /// Gets the current list of equipment types
+        /// </summary>
+        /// <returns>Returns the list of equipment types as a List</returns>
+        private List<string> GetEquipmentTypeList()
+        {
+            List<string> temp = new List<string>(equipmentList.Count);
+            foreach (Equipment eq in equipmentList)
+                if (!temp.Contains(eq.EquipmentType))                  // Prevents duplicates
+                    temp.Add(eq.EquipmentType);
+            return temp;
+        }
+
+        /// <summary>
+        /// Gets the current list of equipment operators
+        /// </summary>
+        /// <returns>Returns the list of equipment operators as a List</returns>
+        private List<string> GetEquipmentOperatorList()
+        {
+            List<string> temp = new List<string>(equipmentList.Count);
+            foreach (Equipment eq in equipmentList)
+                if (!temp.Contains(eq.EquipmentOperator))                  // Prevents duplicates
+                    temp.Add(eq.EquipmentOperator);
+            return temp;
+        }
+
+        #endregion
+
+        #region Parts
+
+        /// <summary>
+        /// Gets the current list of part names
+        /// </summary>
+        /// <returns>Returns the current list of part names</returns>
+        private List<string> GetPartNames()
+        {
+            List<string> temp = new List<string>(partList.Count);
+            foreach (Part p in partList)
+                if(!temp.Contains(p.Name))                              // Prevents duplicates
+                    temp.Add(p.Name);
+            return temp;
+        }
+
+        /// <summary>
+        /// Gets the current list of part numbers
+        /// </summary>
+        /// <returns>Returns the current list of part numbers</returns>
+        private List<string> GetPartNumbers()
+        {
+            List<string> temp = new List<string>(partList.Count);
+            foreach (Part p in partList)
+                if(!temp.Contains(p.PartNumber))                        // Prevents duplicates
+                    temp.Add(p.PartNumber);
+            return temp;
+        }
+
+        #endregion
 
         #region File Methods
 
