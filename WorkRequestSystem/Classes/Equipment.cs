@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DavesMasterWorkOrderRequestDatabase.Classes
 {
@@ -27,7 +28,8 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
         #endregion
 
         public Equipment(string equipmentNumber = "", string department = "",
-            string serialNumber = "", string modelNumber = "", string brand = "", string equipmentType = "", string equipmentOperator = "")
+            string serialNumber = "", string modelNumber = "", string brand = "", string equipmentType = "", string equipmentOperator = "",
+            List<Part> usableParts = null)
         {
             this.equipmentNumber = equipmentNumber;
             this.department = department;
@@ -36,7 +38,7 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
             this.brand = brand;
             this.equipmentType = equipmentType;
             this.equipmentOperator = equipmentOperator;
-            usableParts = new List<Part>();
+            UsableParts = usableParts??new List<Part>();
         }
 
         #region Methods
@@ -48,28 +50,27 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
         /// <returns>Returns true if the part exists in the parts list</returns>
         public bool isValidPart(Part part)
         {
-            return usableParts.Find((Part p) => { return p.PartNumber == part.PartNumber; }) != null;
+            return UsableParts.Find((Part p) => { return p.PartNumber == part.PartNumber; }) != null;
         }
 
         #region File Methods
 
         /// <summary>
-        /// Reads an equipment piece from a file
+        /// Reads an equipment piece from a data string
         /// </summary>
-        /// <param name="path">Path pointing to the file</param>
-        /// <returns>Returns the equipment contained in the file</returns>
-        public static Equipment ReadFromFile(string path)
+        /// <param name="data">Data string containing the equipment</param>
+        /// <returns>Returns the equipment contained in the string</returns>
+        public static Equipment ReadFromString(string data)
         {
             return new Equipment();
         }
 
         /// <summary>
-        /// Writes an equipment object to a file
+        /// Converts a equipment to a data string
         /// </summary>
-        /// <param name="path">Path pointing to the file</param>
-        public virtual void WriteToFile(string path)
+        public virtual string WriteToString()
         {
-
+            return "";
         }
 
         #region XML
@@ -108,7 +109,7 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
         /// <returns>Returns the original equipment object</returns>
         public static Equipment operator +(Equipment equip, Part part)
         {
-            equip.usableParts.Add(part);
+            equip.UsableParts.Add(part);
             return equip;
         }
 
@@ -120,7 +121,7 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
         /// <returns>Returns the original equipment object</returns>
         public static Equipment operator -(Equipment equip, Part part)
         {
-            equip.usableParts.Remove(part);
+            equip.UsableParts.Remove(part);
             return equip;
         }
 
@@ -161,6 +162,12 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
         /// Operator/Driver of the equipment
         /// </summary>
         public string EquipmentOperator { get => equipmentOperator; set => equipmentOperator = value; }
+
+        /// <summary>
+        /// List of parts that can be used on this vehicle, the list of parts is not limited to this list,
+        /// It's only for the ease-of-use for part suggestions when creating work requests.
+        /// </summary>
+        public List<Part> UsableParts { get => usableParts; set => usableParts = value; }
         #endregion
     }
 }
