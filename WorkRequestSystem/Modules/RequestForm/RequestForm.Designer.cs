@@ -71,7 +71,7 @@
             this.DateOfWorkPerformedCalendar.Location = new System.Drawing.Point(14, 296);
             this.DateOfWorkPerformedCalendar.MaxSelectionCount = 1;
             this.DateOfWorkPerformedCalendar.Name = "DateOfWorkPerformedCalendar";
-            this.DateOfWorkPerformedCalendar.TabIndex = 0;
+            this.DateOfWorkPerformedCalendar.TabIndex = 8;
             this.DateOfWorkPerformedCalendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.DateOfWorkPerformedCalendar_DateChanged);
             // 
             // label1
@@ -99,7 +99,7 @@
             this.WorkDescriptionText.Multiline = true;
             this.WorkDescriptionText.Name = "WorkDescriptionText";
             this.WorkDescriptionText.Size = new System.Drawing.Size(267, 118);
-            this.WorkDescriptionText.TabIndex = 4;
+            this.WorkDescriptionText.TabIndex = 7;
             this.WorkDescriptionText.TextChanged += new System.EventHandler(this.WorkDescriptionText_TextChanged);
             // 
             // label3
@@ -140,7 +140,7 @@
             this.HoursWorkedNumeric.Name = "HoursWorkedNumeric";
             this.HoursWorkedNumeric.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.HoursWorkedNumeric.Size = new System.Drawing.Size(55, 20);
-            this.HoursWorkedNumeric.TabIndex = 12;
+            this.HoursWorkedNumeric.TabIndex = 9;
             this.HoursWorkedNumeric.ValueChanged += new System.EventHandler(this.UpdateTimeSpent);
             // 
             // MinutesWorkedNumeric
@@ -153,7 +153,7 @@
             0});
             this.MinutesWorkedNumeric.Name = "MinutesWorkedNumeric";
             this.MinutesWorkedNumeric.Size = new System.Drawing.Size(53, 20);
-            this.MinutesWorkedNumeric.TabIndex = 13;
+            this.MinutesWorkedNumeric.TabIndex = 10;
             this.MinutesWorkedNumeric.ValueChanged += new System.EventHandler(this.UpdateTimeSpent);
             // 
             // label6
@@ -172,6 +172,7 @@
             this.PartsListBox.Name = "PartsListBox";
             this.PartsListBox.Size = new System.Drawing.Size(154, 407);
             this.PartsListBox.TabIndex = 15;
+            this.PartsListBox.TabStop = false;
             // 
             // label7
             // 
@@ -196,7 +197,7 @@
             this.AddPartBtn.Location = new System.Drawing.Point(559, 136);
             this.AddPartBtn.Name = "AddPartBtn";
             this.AddPartBtn.Size = new System.Drawing.Size(75, 23);
-            this.AddPartBtn.TabIndex = 19;
+            this.AddPartBtn.TabIndex = 13;
             this.AddPartBtn.Text = "Add Part";
             this.AddPartBtn.UseVisualStyleBackColor = true;
             this.AddPartBtn.Click += new System.EventHandler(this.AddPartBtn_Click);
@@ -217,7 +218,7 @@
             this.CancelBtn.Location = new System.Drawing.Point(606, 505);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
-            this.CancelBtn.TabIndex = 21;
+            this.CancelBtn.TabIndex = 15;
             this.CancelBtn.Text = "Cancel";
             this.CancelBtn.UseVisualStyleBackColor = true;
             this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
@@ -227,7 +228,7 @@
             this.AcceptBtn.Location = new System.Drawing.Point(525, 505);
             this.AcceptBtn.Name = "AcceptBtn";
             this.AcceptBtn.Size = new System.Drawing.Size(75, 23);
-            this.AcceptBtn.TabIndex = 22;
+            this.AcceptBtn.TabIndex = 14;
             this.AcceptBtn.Text = "Accept";
             this.AcceptBtn.UseVisualStyleBackColor = true;
             this.AcceptBtn.Click += new System.EventHandler(this.AcceptBtn_Click);
@@ -311,7 +312,8 @@
             this.TruckNumberComboBox.Location = new System.Drawing.Point(12, 34);
             this.TruckNumberComboBox.Name = "TruckNumberComboBox";
             this.TruckNumberComboBox.Size = new System.Drawing.Size(123, 20);
-            this.TruckNumberComboBox.TabIndex = 38;
+            this.TruckNumberComboBox.TabIndex = 0;
+            this.TruckNumberComboBox.TextChanged += new System.EventHandler(this.TruckNumberComboBox_SelectedIndexChanged);
             // 
             // TruckBrandComboBox
             // 
@@ -320,7 +322,8 @@
             this.TruckBrandComboBox.Location = new System.Drawing.Point(141, 32);
             this.TruckBrandComboBox.Name = "TruckBrandComboBox";
             this.TruckBrandComboBox.Size = new System.Drawing.Size(122, 20);
-            this.TruckBrandComboBox.TabIndex = 39;
+            this.TruckBrandComboBox.TabIndex = 1;
+            this.TruckBrandComboBox.TextChanged += new System.EventHandler(this.TruckBrandComboBox_SelectedIndexChanged);
             // 
             // TruckTypeComboBox
             // 
@@ -329,7 +332,8 @@
             this.TruckTypeComboBox.Location = new System.Drawing.Point(269, 32);
             this.TruckTypeComboBox.Name = "TruckTypeComboBox";
             this.TruckTypeComboBox.Size = new System.Drawing.Size(121, 20);
-            this.TruckTypeComboBox.TabIndex = 40;
+            this.TruckTypeComboBox.TabIndex = 2;
+            this.TruckTypeComboBox.TextChanged += new System.EventHandler(this.TruckTypeComboBox_SelectedIndexChanged);
             // 
             // TruckSerialNumberComboBox
             // 
@@ -338,7 +342,8 @@
             this.TruckSerialNumberComboBox.Location = new System.Drawing.Point(12, 73);
             this.TruckSerialNumberComboBox.Name = "TruckSerialNumberComboBox";
             this.TruckSerialNumberComboBox.Size = new System.Drawing.Size(124, 20);
-            this.TruckSerialNumberComboBox.TabIndex = 41;
+            this.TruckSerialNumberComboBox.TabIndex = 3;
+            this.TruckSerialNumberComboBox.TextChanged += new System.EventHandler(this.TruckSerialNumberComboBox_SelectedIndexChanged);
             // 
             // TruckModelNumberComboBox
             // 
@@ -347,7 +352,8 @@
             this.TruckModelNumberComboBox.Location = new System.Drawing.Point(142, 73);
             this.TruckModelNumberComboBox.Name = "TruckModelNumberComboBox";
             this.TruckModelNumberComboBox.Size = new System.Drawing.Size(121, 20);
-            this.TruckModelNumberComboBox.TabIndex = 42;
+            this.TruckModelNumberComboBox.TabIndex = 4;
+            this.TruckModelNumberComboBox.TextChanged += new System.EventHandler(this.TruckModelNumberComboBox_SelectedIndexChanged);
             // 
             // TruckDepartmentComboBox
             // 
@@ -356,7 +362,8 @@
             this.TruckDepartmentComboBox.Location = new System.Drawing.Point(269, 73);
             this.TruckDepartmentComboBox.Name = "TruckDepartmentComboBox";
             this.TruckDepartmentComboBox.Size = new System.Drawing.Size(121, 20);
-            this.TruckDepartmentComboBox.TabIndex = 43;
+            this.TruckDepartmentComboBox.TabIndex = 5;
+            this.TruckDepartmentComboBox.TextChanged += new System.EventHandler(this.TruckDepartmentComboBox_SelectedIndexChanged);
             // 
             // TruckOperatorComboBox
             // 
@@ -365,7 +372,8 @@
             this.TruckOperatorComboBox.Location = new System.Drawing.Point(12, 114);
             this.TruckOperatorComboBox.Name = "TruckOperatorComboBox";
             this.TruckOperatorComboBox.Size = new System.Drawing.Size(123, 20);
-            this.TruckOperatorComboBox.TabIndex = 44;
+            this.TruckOperatorComboBox.TabIndex = 6;
+            this.TruckOperatorComboBox.TextChanged += new System.EventHandler(this.TruckOperatorComboBox_SelectedIndexChanged);
             // 
             // PartNameComboBox
             // 
@@ -374,7 +382,8 @@
             this.PartNameComboBox.Location = new System.Drawing.Point(560, 65);
             this.PartNameComboBox.Name = "PartNameComboBox";
             this.PartNameComboBox.Size = new System.Drawing.Size(121, 20);
-            this.PartNameComboBox.TabIndex = 45;
+            this.PartNameComboBox.TabIndex = 11;
+            this.PartNameComboBox.TextChanged += new System.EventHandler(this.PartNameComboBox_SelectedIndexChanged);
             // 
             // PartsNumberComboBox
             // 
@@ -383,7 +392,8 @@
             this.PartsNumberComboBox.Location = new System.Drawing.Point(559, 109);
             this.PartsNumberComboBox.Name = "PartsNumberComboBox";
             this.PartsNumberComboBox.Size = new System.Drawing.Size(122, 20);
-            this.PartsNumberComboBox.TabIndex = 46;
+            this.PartsNumberComboBox.TabIndex = 12;
+            this.PartsNumberComboBox.TextChanged += new System.EventHandler(this.PartsNumberComboBox_SelectedIndexChanged);
             // 
             // RequestForm
             // 

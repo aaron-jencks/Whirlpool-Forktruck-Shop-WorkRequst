@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WorkRequestSystem.Classes;
 
 namespace WorkRequestSystem.Modules
 {
@@ -16,13 +17,13 @@ namespace WorkRequestSystem.Modules
     {
         #region Events
 
-        public delegate void CompletionEventHandler(object sender, EventArgs e);
+        public delegate void CompletionEventHandler(object sender, FormCompletionEventArgs e);
 
         public event CompletionEventHandler CompletionEvent;
 
         public virtual void OnCompletionEvent()
         {
-            CompletionEvent?.Invoke(this, new EventArgs());
+            CompletionEvent?.Invoke(this, new FormCompletionEventArgs(new RequestFormCompletionData(DB, workRequest)));
         }
 
         #endregion
@@ -149,8 +150,8 @@ namespace WorkRequestSystem.Modules
             DB = new Database();
             equipment = new Equipment();
             part = new Part();
+            workRequest = new WorkRequest();
             Setup();
-            InitializeComponent();
         }
 
         /// <summary>
@@ -535,7 +536,30 @@ namespace WorkRequestSystem.Modules
         /// </summary>
         private void UpdatePartsListbox()
         {
-            PartsListBox.DataSource = workRequest.PartsList;
+            List<string> partList = new List<string>(workRequest.PartsList.Count);
+
+            foreach (Part p in workRequest.PartsList)
+                partList.Add(p.Name);
+
+            PartsListBox.DataSource = partList;
+        }
+
+        /// <summary>
+        /// Checks if all required fields on the form are completed
+        /// </summary>
+        /// <returns>Returns a boolean representing the completion status</returns>
+        private bool CheckCompletion()
+        {
+            if((equipment.EquipmentNumber != "" && 
+               equipment.Brand != "" && 
+               equipment.Department != "" && 
+               equipment.EquipmentOperator != "" && 
+               equipment.EquipmentType != "") && 
+               (workRequest.PartsList.Count > 0 && 
+               workRequest.WorkDescription != "" && 
+               workRequest.TimeSpent != 0))
+                return true;
+            return false;
         }
 
         #endregion
@@ -549,8 +573,15 @@ namespace WorkRequestSystem.Modules
         /// <param name="e"></param>
         private void AcceptBtn_Click(object sender, EventArgs e)
         {
-            OnCompletionEvent();
-            Dispose();
+            if (CheckCompletion())
+            {
+                OnCompletionEvent();
+                Dispose();
+            }
+            else
+            {
+                MessageBox.Show("Please fill in all required fields.");
+            }
         }
 
         /// <summary>
@@ -574,11 +605,11 @@ namespace WorkRequestSystem.Modules
         /// <param name="e"></param>
         private void AddPartBtn_Click(object sender, EventArgs e)
         {
-            if (PartNameComboBox.Text != "")
+            if (part.Name != "")
             {
-                if (PartsNumberComboBox.Text != "")
+                if (part.PartNumber != "")
                 {
-                    workRequest.PartsList.Add(new Part(PartNameComboBox.Text, PartsNumberComboBox.Text));
+                    workRequest.PartsList.Add(part);
                     UpdatePartsListbox();
                 }
                 else

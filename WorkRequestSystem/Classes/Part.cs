@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DavesMasterWorkOrderRequestDatabase.Classes
 {
@@ -45,22 +46,21 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
         #region File Methods
 
         /// <summary>
-        /// Reads a part from a file
+        /// Reads a part from a data string
         /// </summary>
-        /// <param name="path">Path pointing to the file</param>
-        /// <returns>Returns the part contained in the file</returns>
-        public static Part ReadFromFile(string path)
+        /// <param name="data">Data string containing the part</param>
+        /// <returns>Returns the part contained in the string</returns>
+        public static Part ReadFromFile(string data)
         {
             return new Part();
         }
 
         /// <summary>
-        /// Saves a part to a file
+        /// Saves a part to a data string
         /// </summary>
-        /// <param name="path">Path pointing to the file</param>
-        public virtual void WriteToFile(string path)
+        public virtual string WriteToString()
         {
-
+            return "";
         }
 
         #region XML

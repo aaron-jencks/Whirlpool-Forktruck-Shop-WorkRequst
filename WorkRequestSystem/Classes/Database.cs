@@ -356,8 +356,9 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
             #region Setup
 
             Excel.Application application = new Excel.Application();    // Application instance of excel
-            application.Visible = false;
-            Excel.Workbook book = new Excel.Workbook();                 // Creates the workbook to house the new database
+            application.Visible = false;                                // Suppresses the application from making a visible window
+            application.Workbooks.Add();                                // Adds a new workbook to the list of workbooks
+            Excel.Workbook book = application.ActiveWorkbook;           // Creates the workbook to house the new database
             Excel.Worksheet workRequestSheet = book.Sheets[1];          // Worksheet for the list of work request descriptions
             Excel.Worksheet partSheet = book.Sheets[2];                 // Worksheet for the list of parts available
             Excel.Worksheet equipmentSheet = book.Sheets[3];            // Worksheet for the list of equipment available

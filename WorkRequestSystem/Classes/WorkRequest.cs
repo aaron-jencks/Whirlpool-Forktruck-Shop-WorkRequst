@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DavesMasterWorkOrderRequestDatabase
 {
@@ -77,22 +78,21 @@ namespace DavesMasterWorkOrderRequestDatabase
         #region File Methods
 
         /// <summary>
-        /// Loads a WorkRequest from a file
+        /// Loads a WorkRequest from an excel Range
         /// </summary>
-        /// <param name="path">Path pointing to the file</param>
-        /// <returns>Returns the work request contained in the file</returns>
-        public static WorkRequest ReadFromFile(string path)
+        /// <param name="range">Range containing the work request</param>
+        /// <returns>Returns the work request contained in the range</returns>
+        public static WorkRequest ReadFromString(Excel.Range range)
         {
             return new WorkRequest();
         }
 
         /// <summary>
-        /// Writes a work request to a file
+        /// Writes a work request to an Excel Range
         /// </summary>
-        /// <param name="path">Path pointing to the file</param>
-        public virtual void WriteToFile(string path)
+        public virtual string WriteToRange()
         {
-
+            return "";
         }
 
         #region XML
