@@ -33,7 +33,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.WorkDescriptionText = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.TruckNumberComboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.HoursWorkedNumeric = new System.Windows.Forms.NumericUpDown();
@@ -42,26 +41,27 @@
             this.PartsListBox = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.PartNameComboBox = new System.Windows.Forms.ComboBox();
             this.AddPartBtn = new System.Windows.Forms.Button();
             this.RemovePartBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.AcceptBtn = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.PartsNumberComboBox = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.TruckBrandComboBox = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.TruckSerialNumberComboBox = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.TruckModelNumberComboBox = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.TruckTypeComboBox = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.TruckDepartmentComboBox = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.TruckOperatorComboBox = new System.Windows.Forms.ComboBox();
+            this.TruckNumberComboBox = new System.Windows.Forms.TextBox();
+            this.TruckBrandComboBox = new System.Windows.Forms.TextBox();
+            this.TruckTypeComboBox = new System.Windows.Forms.TextBox();
+            this.TruckSerialNumberComboBox = new System.Windows.Forms.TextBox();
+            this.TruckModelNumberComboBox = new System.Windows.Forms.TextBox();
+            this.TruckDepartmentComboBox = new System.Windows.Forms.TextBox();
+            this.TruckOperatorComboBox = new System.Windows.Forms.TextBox();
+            this.PartNameComboBox = new System.Windows.Forms.TextBox();
+            this.PartsNumberComboBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.HoursWorkedNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinutesWorkedNumeric)).BeginInit();
             this.SuspendLayout();
@@ -110,18 +110,6 @@
             this.label3.Size = new System.Drawing.Size(118, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Date of work performed";
-            // 
-            // TruckNumberComboBox
-            // 
-            this.TruckNumberComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.TruckNumberComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TruckNumberComboBox.FormattingEnabled = true;
-            this.TruckNumberComboBox.Location = new System.Drawing.Point(15, 33);
-            this.TruckNumberComboBox.Name = "TruckNumberComboBox";
-            this.TruckNumberComboBox.Size = new System.Drawing.Size(121, 21);
-            this.TruckNumberComboBox.TabIndex = 9;
-            this.TruckNumberComboBox.SelectedIndexChanged += new System.EventHandler(this.TruckNumberComboBox_SelectedIndexChanged);
-            this.TruckNumberComboBox.TextUpdate += new System.EventHandler(this.TruckNumberComboBox_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -203,17 +191,6 @@
             this.label8.TabIndex = 17;
             this.label8.Text = "Part to add";
             // 
-            // PartNameComboBox
-            // 
-            this.PartNameComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.PartNameComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.PartNameComboBox.FormattingEnabled = true;
-            this.PartNameComboBox.Location = new System.Drawing.Point(560, 65);
-            this.PartNameComboBox.Name = "PartNameComboBox";
-            this.PartNameComboBox.Size = new System.Drawing.Size(121, 21);
-            this.PartNameComboBox.TabIndex = 18;
-            this.PartNameComboBox.SelectedIndexChanged += new System.EventHandler(this.PartNameComboBox_SelectedIndexChanged);
-            // 
             // AddPartBtn
             // 
             this.AddPartBtn.Location = new System.Drawing.Point(559, 136);
@@ -273,17 +250,6 @@
             this.label10.TabIndex = 24;
             this.label10.Text = "P/N";
             // 
-            // PartsNumberComboBox
-            // 
-            this.PartsNumberComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.PartsNumberComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.PartsNumberComboBox.FormattingEnabled = true;
-            this.PartsNumberComboBox.Location = new System.Drawing.Point(560, 109);
-            this.PartsNumberComboBox.Name = "PartsNumberComboBox";
-            this.PartsNumberComboBox.Size = new System.Drawing.Size(121, 21);
-            this.PartsNumberComboBox.TabIndex = 25;
-            this.PartsNumberComboBox.SelectedIndexChanged += new System.EventHandler(this.PartsNumberComboBox_SelectedIndexChanged);
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -292,18 +258,6 @@
             this.label11.Size = new System.Drawing.Size(66, 13);
             this.label11.TabIndex = 26;
             this.label11.Text = "Truck Brand";
-            // 
-            // TruckBrandComboBox
-            // 
-            this.TruckBrandComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.TruckBrandComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TruckBrandComboBox.FormattingEnabled = true;
-            this.TruckBrandComboBox.Location = new System.Drawing.Point(142, 33);
-            this.TruckBrandComboBox.Name = "TruckBrandComboBox";
-            this.TruckBrandComboBox.Size = new System.Drawing.Size(121, 21);
-            this.TruckBrandComboBox.TabIndex = 27;
-            this.TruckBrandComboBox.SelectedIndexChanged += new System.EventHandler(this.TruckBrandComboBox_SelectedIndexChanged);
-            this.TruckBrandComboBox.TextUpdate += new System.EventHandler(this.TruckBrandComboBox_SelectedIndexChanged);
             // 
             // label12
             // 
@@ -314,18 +268,6 @@
             this.label12.TabIndex = 28;
             this.label12.Text = "Serial Number";
             // 
-            // TruckSerialNumberComboBox
-            // 
-            this.TruckSerialNumberComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.TruckSerialNumberComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TruckSerialNumberComboBox.FormattingEnabled = true;
-            this.TruckSerialNumberComboBox.Location = new System.Drawing.Point(15, 73);
-            this.TruckSerialNumberComboBox.Name = "TruckSerialNumberComboBox";
-            this.TruckSerialNumberComboBox.Size = new System.Drawing.Size(121, 21);
-            this.TruckSerialNumberComboBox.TabIndex = 29;
-            this.TruckSerialNumberComboBox.SelectedIndexChanged += new System.EventHandler(this.TruckSerialNumberComboBox_SelectedIndexChanged);
-            this.TruckSerialNumberComboBox.TextUpdate += new System.EventHandler(this.TruckSerialNumberComboBox_SelectedIndexChanged);
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -334,18 +276,6 @@
             this.label13.Size = new System.Drawing.Size(76, 13);
             this.label13.TabIndex = 30;
             this.label13.Text = "Model Number";
-            // 
-            // TruckModelNumberComboBox
-            // 
-            this.TruckModelNumberComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.TruckModelNumberComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TruckModelNumberComboBox.FormattingEnabled = true;
-            this.TruckModelNumberComboBox.Location = new System.Drawing.Point(142, 73);
-            this.TruckModelNumberComboBox.Name = "TruckModelNumberComboBox";
-            this.TruckModelNumberComboBox.Size = new System.Drawing.Size(121, 21);
-            this.TruckModelNumberComboBox.TabIndex = 31;
-            this.TruckModelNumberComboBox.SelectedIndexChanged += new System.EventHandler(this.TruckModelNumberComboBox_SelectedIndexChanged);
-            this.TruckModelNumberComboBox.TextUpdate += new System.EventHandler(this.TruckModelNumberComboBox_SelectedIndexChanged);
             // 
             // label14
             // 
@@ -356,18 +286,6 @@
             this.label14.TabIndex = 32;
             this.label14.Text = "Truck Type";
             // 
-            // TruckTypeComboBox
-            // 
-            this.TruckTypeComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.TruckTypeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TruckTypeComboBox.FormattingEnabled = true;
-            this.TruckTypeComboBox.Location = new System.Drawing.Point(269, 32);
-            this.TruckTypeComboBox.Name = "TruckTypeComboBox";
-            this.TruckTypeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.TruckTypeComboBox.TabIndex = 33;
-            this.TruckTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.TruckTypeComboBox_SelectedIndexChanged);
-            this.TruckTypeComboBox.TextUpdate += new System.EventHandler(this.TruckTypeComboBox_SelectedIndexChanged);
-            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -376,18 +294,6 @@
             this.label15.Size = new System.Drawing.Size(62, 13);
             this.label15.TabIndex = 34;
             this.label15.Text = "Department";
-            // 
-            // TruckDepartmentComboBox
-            // 
-            this.TruckDepartmentComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.TruckDepartmentComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TruckDepartmentComboBox.FormattingEnabled = true;
-            this.TruckDepartmentComboBox.Location = new System.Drawing.Point(269, 73);
-            this.TruckDepartmentComboBox.Name = "TruckDepartmentComboBox";
-            this.TruckDepartmentComboBox.Size = new System.Drawing.Size(121, 21);
-            this.TruckDepartmentComboBox.TabIndex = 35;
-            this.TruckDepartmentComboBox.SelectedIndexChanged += new System.EventHandler(this.TruckDepartmentComboBox_SelectedIndexChanged);
-            this.TruckDepartmentComboBox.TextUpdate += new System.EventHandler(this.TruckDepartmentComboBox_SelectedIndexChanged);
             // 
             // label16
             // 
@@ -398,17 +304,86 @@
             this.label16.TabIndex = 36;
             this.label16.Text = "Operator";
             // 
+            // TruckNumberComboBox
+            // 
+            this.TruckNumberComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.TruckNumberComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.TruckNumberComboBox.Location = new System.Drawing.Point(12, 34);
+            this.TruckNumberComboBox.Name = "TruckNumberComboBox";
+            this.TruckNumberComboBox.Size = new System.Drawing.Size(123, 20);
+            this.TruckNumberComboBox.TabIndex = 38;
+            // 
+            // TruckBrandComboBox
+            // 
+            this.TruckBrandComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.TruckBrandComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.TruckBrandComboBox.Location = new System.Drawing.Point(141, 32);
+            this.TruckBrandComboBox.Name = "TruckBrandComboBox";
+            this.TruckBrandComboBox.Size = new System.Drawing.Size(122, 20);
+            this.TruckBrandComboBox.TabIndex = 39;
+            // 
+            // TruckTypeComboBox
+            // 
+            this.TruckTypeComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.TruckTypeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.TruckTypeComboBox.Location = new System.Drawing.Point(269, 32);
+            this.TruckTypeComboBox.Name = "TruckTypeComboBox";
+            this.TruckTypeComboBox.Size = new System.Drawing.Size(121, 20);
+            this.TruckTypeComboBox.TabIndex = 40;
+            // 
+            // TruckSerialNumberComboBox
+            // 
+            this.TruckSerialNumberComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.TruckSerialNumberComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.TruckSerialNumberComboBox.Location = new System.Drawing.Point(12, 73);
+            this.TruckSerialNumberComboBox.Name = "TruckSerialNumberComboBox";
+            this.TruckSerialNumberComboBox.Size = new System.Drawing.Size(124, 20);
+            this.TruckSerialNumberComboBox.TabIndex = 41;
+            // 
+            // TruckModelNumberComboBox
+            // 
+            this.TruckModelNumberComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.TruckModelNumberComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.TruckModelNumberComboBox.Location = new System.Drawing.Point(142, 73);
+            this.TruckModelNumberComboBox.Name = "TruckModelNumberComboBox";
+            this.TruckModelNumberComboBox.Size = new System.Drawing.Size(121, 20);
+            this.TruckModelNumberComboBox.TabIndex = 42;
+            // 
+            // TruckDepartmentComboBox
+            // 
+            this.TruckDepartmentComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.TruckDepartmentComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.TruckDepartmentComboBox.Location = new System.Drawing.Point(269, 73);
+            this.TruckDepartmentComboBox.Name = "TruckDepartmentComboBox";
+            this.TruckDepartmentComboBox.Size = new System.Drawing.Size(121, 20);
+            this.TruckDepartmentComboBox.TabIndex = 43;
+            // 
             // TruckOperatorComboBox
             // 
             this.TruckOperatorComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.TruckOperatorComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TruckOperatorComboBox.FormattingEnabled = true;
-            this.TruckOperatorComboBox.Location = new System.Drawing.Point(15, 113);
+            this.TruckOperatorComboBox.Location = new System.Drawing.Point(12, 114);
             this.TruckOperatorComboBox.Name = "TruckOperatorComboBox";
-            this.TruckOperatorComboBox.Size = new System.Drawing.Size(121, 21);
-            this.TruckOperatorComboBox.TabIndex = 37;
-            this.TruckOperatorComboBox.SelectedIndexChanged += new System.EventHandler(this.TruckOperatorComboBox_SelectedIndexChanged);
-            this.TruckOperatorComboBox.TextUpdate += new System.EventHandler(this.TruckOperatorComboBox_SelectedIndexChanged);
+            this.TruckOperatorComboBox.Size = new System.Drawing.Size(123, 20);
+            this.TruckOperatorComboBox.TabIndex = 44;
+            // 
+            // PartNameComboBox
+            // 
+            this.PartNameComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.PartNameComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.PartNameComboBox.Location = new System.Drawing.Point(560, 65);
+            this.PartNameComboBox.Name = "PartNameComboBox";
+            this.PartNameComboBox.Size = new System.Drawing.Size(121, 20);
+            this.PartNameComboBox.TabIndex = 45;
+            // 
+            // PartsNumberComboBox
+            // 
+            this.PartsNumberComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.PartsNumberComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.PartsNumberComboBox.Location = new System.Drawing.Point(559, 109);
+            this.PartsNumberComboBox.Name = "PartsNumberComboBox";
+            this.PartsNumberComboBox.Size = new System.Drawing.Size(122, 20);
+            this.PartsNumberComboBox.TabIndex = 46;
             // 
             // RequestForm
             // 
@@ -417,26 +392,27 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
             this.ClientSize = new System.Drawing.Size(690, 537);
-            this.Controls.Add(this.TruckOperatorComboBox);
-            this.Controls.Add(this.label16);
-            this.Controls.Add(this.TruckDepartmentComboBox);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.TruckTypeComboBox);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.TruckModelNumberComboBox);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.TruckSerialNumberComboBox);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.TruckBrandComboBox);
-            this.Controls.Add(this.label11);
             this.Controls.Add(this.PartsNumberComboBox);
+            this.Controls.Add(this.PartNameComboBox);
+            this.Controls.Add(this.TruckOperatorComboBox);
+            this.Controls.Add(this.TruckDepartmentComboBox);
+            this.Controls.Add(this.TruckModelNumberComboBox);
+            this.Controls.Add(this.TruckSerialNumberComboBox);
+            this.Controls.Add(this.TruckTypeComboBox);
+            this.Controls.Add(this.TruckBrandComboBox);
+            this.Controls.Add(this.TruckNumberComboBox);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.AcceptBtn);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.RemovePartBtn);
             this.Controls.Add(this.AddPartBtn);
-            this.Controls.Add(this.PartNameComboBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.PartsListBox);
@@ -445,7 +421,6 @@
             this.Controls.Add(this.HoursWorkedNumeric);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.TruckNumberComboBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.WorkDescriptionText);
             this.Controls.Add(this.label2);
@@ -472,7 +447,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox WorkDescriptionText;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox TruckNumberComboBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown HoursWorkedNumeric;
@@ -481,25 +455,26 @@
         private System.Windows.Forms.ListBox PartsListBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox PartNameComboBox;
         private System.Windows.Forms.Button AddPartBtn;
         private System.Windows.Forms.Button RemovePartBtn;
         private System.Windows.Forms.Button CancelBtn;
         private System.Windows.Forms.Button AcceptBtn;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox PartsNumberComboBox;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox TruckBrandComboBox;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox TruckSerialNumberComboBox;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ComboBox TruckModelNumberComboBox;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox TruckTypeComboBox;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ComboBox TruckDepartmentComboBox;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ComboBox TruckOperatorComboBox;
+        private System.Windows.Forms.TextBox TruckNumberComboBox;
+        private System.Windows.Forms.TextBox TruckBrandComboBox;
+        private System.Windows.Forms.TextBox TruckTypeComboBox;
+        private System.Windows.Forms.TextBox TruckSerialNumberComboBox;
+        private System.Windows.Forms.TextBox TruckModelNumberComboBox;
+        private System.Windows.Forms.TextBox TruckDepartmentComboBox;
+        private System.Windows.Forms.TextBox TruckOperatorComboBox;
+        private System.Windows.Forms.TextBox PartNameComboBox;
+        private System.Windows.Forms.TextBox PartsNumberComboBox;
     }
 }

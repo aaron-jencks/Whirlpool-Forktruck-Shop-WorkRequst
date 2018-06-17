@@ -146,6 +146,10 @@ namespace WorkRequestSystem.Modules
         /// </summary>
         public RequestForm()
         {
+            DB = new Database();
+            equipment = new Equipment();
+            part = new Part();
+            Setup();
             InitializeComponent();
         }
 
@@ -154,6 +158,8 @@ namespace WorkRequestSystem.Modules
         /// </summary>
         private void Setup()
         {
+            InitializeComponent();
+
             #region Auto Complete
 
             #region Parts
@@ -178,10 +184,6 @@ namespace WorkRequestSystem.Modules
             #endregion
 
             part = new Part();
-
-            UpdateControlLists();
-
-            InitializeComponent();
         }
 
         /// <summary>
@@ -189,7 +191,27 @@ namespace WorkRequestSystem.Modules
         /// </summary>
         private void InitializeControlValues()
         {
-            throw new NotImplementedException("InitializeControlValues method");
+            WorkDescriptionText.Text = workRequest.WorkDescription;
+
+            #region Equipment
+
+            TruckNumberComboBox.Text = workRequest.Equipment.EquipmentNumber;
+            TruckOperatorComboBox.Text = workRequest.Equipment.EquipmentOperator;
+            TruckSerialNumberComboBox.Text = workRequest.Equipment.SerialNumber;
+            TruckModelNumberComboBox.Text = workRequest.Equipment.ModelNumber;
+            TruckDepartmentComboBox.Text = workRequest.Equipment.Department;
+            TruckBrandComboBox.Text = workRequest.Equipment.Brand;
+            TruckTypeComboBox.Text = workRequest.Equipment.EquipmentType;
+
+            #endregion
+
+            DateOfWorkPerformedCalendar.SelectionStart = workRequest.Date;
+            DateOfWorkPerformedCalendar.SelectionEnd = workRequest.Date;
+
+            HoursWorkedNumeric.Value = (int)workRequest.TimeSpent;
+            MinutesWorkedNumeric.Value = (decimal)(workRequest.TimeSpent - (int)workRequest.TimeSpent) * 60;
+
+            UpdatePartsListbox();
         }
 
         #endregion
@@ -206,31 +228,6 @@ namespace WorkRequestSystem.Modules
         #region Methods
 
         /// <summary>
-        /// Copies the lists of parts and equipment into their respective fields
-        /// </summary>
-        private void UpdateControlLists()
-        {
-            #region Equipment
-
-            TruckNumberComboBox.DataSource = DB.EquipmentNumbers;
-            TruckSerialNumberComboBox.DataSource = DB.EquipmentSerialNumbers;
-            TruckModelNumberComboBox.DataSource = DB.EquipmentModelNumbers;
-            TruckDepartmentComboBox.DataSource = DB.EquipmentDepartments;
-            TruckBrandComboBox.DataSource = DB.EquipmentBrands;
-            TruckTypeComboBox.DataSource = DB.EquipmentTypes;
-            TruckOperatorComboBox.DataSource = DB.EquipmentOperators;
-
-            #endregion
-
-            #region Parts
-
-            PartNameComboBox.DataSource = DB.PartNames;
-            PartsNumberComboBox.DataSource = DB.PartNumbers;
-
-            #endregion
-        }
-
-        /// <summary>
         /// Updates the auto-complete collections based on the filled in data
         /// </summary>
         private void UpdateAutoCompleteLists()
@@ -242,18 +239,18 @@ namespace WorkRequestSystem.Modules
             List<Equipment> tempequip = new List<Equipment>();
 
             #region Type
-            if (TruckTypeComboBox.SelectedText == "")
+            if (TruckTypeComboBox.Text == "")
             {
                 // Finds equipment that match the search criteria
                 tempequip = DB.EquipmentList.FindAll((Equipment e) =>
                 {
                     return
-                        e.EquipmentNumber == ((TruckNumberComboBox.SelectedText == "") ? e.EquipmentNumber : TruckNumberComboBox.SelectedText) &&
-                        e.ModelNumber == ((TruckModelNumberComboBox.SelectedText == "") ? e.ModelNumber : TruckModelNumberComboBox.SelectedText) &&
-                        e.SerialNumber == ((TruckSerialNumberComboBox.SelectedText == "") ? e.SerialNumber : TruckSerialNumberComboBox.SelectedText) &&
-                        e.Brand == ((TruckBrandComboBox.SelectedText == "") ? e.Brand : TruckBrandComboBox.SelectedText) &&
-                        e.Department == ((TruckDepartmentComboBox.SelectedText == "") ? e.Department : TruckDepartmentComboBox.SelectedText) &&
-                        e.EquipmentOperator == ((TruckOperatorComboBox.SelectedText == "") ? e.EquipmentOperator : TruckOperatorComboBox.SelectedText);
+                        e.EquipmentNumber == ((TruckNumberComboBox.Text == "") ? e.EquipmentNumber : TruckNumberComboBox.Text) &&
+                        e.ModelNumber == ((TruckModelNumberComboBox.Text == "") ? e.ModelNumber : TruckModelNumberComboBox.Text) &&
+                        e.SerialNumber == ((TruckSerialNumberComboBox.Text == "") ? e.SerialNumber : TruckSerialNumberComboBox.Text) &&
+                        e.Brand == ((TruckBrandComboBox.Text == "") ? e.Brand : TruckBrandComboBox.Text) &&
+                        e.Department == ((TruckDepartmentComboBox.Text == "") ? e.Department : TruckDepartmentComboBox.Text) &&
+                        e.EquipmentOperator == ((TruckOperatorComboBox.Text == "") ? e.EquipmentOperator : TruckOperatorComboBox.Text);
                 });
 
                 // converts to string
@@ -268,18 +265,18 @@ namespace WorkRequestSystem.Modules
             #endregion
 
             #region Operator
-            if (TruckOperatorComboBox.SelectedText == "")
+            if (TruckOperatorComboBox.Text == "")
             {
                 // Finds equipment that match the search criteria
                 tempequip = DB.EquipmentList.FindAll((Equipment e) =>
                 {
                     return
-                        e.EquipmentNumber == ((TruckNumberComboBox.SelectedText == "") ? e.EquipmentNumber : TruckNumberComboBox.SelectedText) &&
-                        e.ModelNumber == ((TruckModelNumberComboBox.SelectedText == "") ? e.ModelNumber : TruckModelNumberComboBox.SelectedText) &&
-                        e.SerialNumber == ((TruckSerialNumberComboBox.SelectedText == "") ? e.SerialNumber : TruckSerialNumberComboBox.SelectedText) &&
-                        e.Brand == ((TruckBrandComboBox.SelectedText == "") ? e.Brand : TruckBrandComboBox.SelectedText) &&
-                        e.Department == ((TruckDepartmentComboBox.SelectedText == "") ? e.Department : TruckDepartmentComboBox.SelectedText) &&
-                        e.EquipmentType == ((TruckTypeComboBox.SelectedText == "") ? e.EquipmentType : TruckTypeComboBox.SelectedText);
+                        e.EquipmentNumber == ((TruckNumberComboBox.Text == "") ? e.EquipmentNumber : TruckNumberComboBox.Text) &&
+                        e.ModelNumber == ((TruckModelNumberComboBox.Text == "") ? e.ModelNumber : TruckModelNumberComboBox.Text) &&
+                        e.SerialNumber == ((TruckSerialNumberComboBox.Text == "") ? e.SerialNumber : TruckSerialNumberComboBox.Text) &&
+                        e.Brand == ((TruckBrandComboBox.Text == "") ? e.Brand : TruckBrandComboBox.Text) &&
+                        e.Department == ((TruckDepartmentComboBox.Text == "") ? e.Department : TruckDepartmentComboBox.Text) &&
+                        e.EquipmentType == ((TruckTypeComboBox.Text == "") ? e.EquipmentType : TruckTypeComboBox.Text);
                 });
 
                 // converts to string
@@ -294,18 +291,18 @@ namespace WorkRequestSystem.Modules
             #endregion
 
             #region Department
-            if (TruckDepartmentComboBox.SelectedText == "")
+            if (TruckDepartmentComboBox.Text == "")
             {
                 // Finds equipment that match the search criteria
                 tempequip = DB.EquipmentList.FindAll((Equipment e) =>
                 {
                     return
-                        e.EquipmentNumber == ((TruckNumberComboBox.SelectedText == "") ? e.EquipmentNumber : TruckNumberComboBox.SelectedText) &&
-                        e.ModelNumber == ((TruckModelNumberComboBox.SelectedText == "") ? e.ModelNumber : TruckModelNumberComboBox.SelectedText) &&
-                        e.SerialNumber == ((TruckSerialNumberComboBox.SelectedText == "") ? e.SerialNumber : TruckSerialNumberComboBox.SelectedText) &&
-                        e.Brand == ((TruckBrandComboBox.SelectedText == "") ? e.Brand : TruckBrandComboBox.SelectedText) &&
-                        e.EquipmentOperator == ((TruckOperatorComboBox.SelectedText == "") ? e.EquipmentOperator : TruckOperatorComboBox.SelectedText) &&
-                        e.EquipmentType == ((TruckTypeComboBox.SelectedText == "") ? e.EquipmentType : TruckTypeComboBox.SelectedText);
+                        e.EquipmentNumber == ((TruckNumberComboBox.Text == "") ? e.EquipmentNumber : TruckNumberComboBox.Text) &&
+                        e.ModelNumber == ((TruckModelNumberComboBox.Text == "") ? e.ModelNumber : TruckModelNumberComboBox.Text) &&
+                        e.SerialNumber == ((TruckSerialNumberComboBox.Text == "") ? e.SerialNumber : TruckSerialNumberComboBox.Text) &&
+                        e.Brand == ((TruckBrandComboBox.Text == "") ? e.Brand : TruckBrandComboBox.Text) &&
+                        e.EquipmentOperator == ((TruckOperatorComboBox.Text == "") ? e.EquipmentOperator : TruckOperatorComboBox.Text) &&
+                        e.EquipmentType == ((TruckTypeComboBox.Text == "") ? e.EquipmentType : TruckTypeComboBox.Text);
                 });
 
                 // converts to string
@@ -320,18 +317,18 @@ namespace WorkRequestSystem.Modules
             #endregion
 
             #region Brand
-            if (TruckBrandComboBox.SelectedText == "")
+            if (TruckBrandComboBox.Text == "")
             {
                 // Finds equipment that match the search criteria
                 tempequip = DB.EquipmentList.FindAll((Equipment e) =>
                 {
                     return
-                        e.EquipmentNumber == ((TruckNumberComboBox.SelectedText == "") ? e.EquipmentNumber : TruckNumberComboBox.SelectedText) &&
-                        e.ModelNumber == ((TruckModelNumberComboBox.SelectedText == "") ? e.ModelNumber : TruckModelNumberComboBox.SelectedText) &&
-                        e.SerialNumber == ((TruckSerialNumberComboBox.SelectedText == "") ? e.SerialNumber : TruckSerialNumberComboBox.SelectedText) &&
-                        e.Department == ((TruckDepartmentComboBox.SelectedText == "") ? e.Department : TruckDepartmentComboBox.SelectedText) &&
-                        e.EquipmentOperator == ((TruckOperatorComboBox.SelectedText == "") ? e.EquipmentOperator : TruckOperatorComboBox.SelectedText) &&
-                        e.EquipmentType == ((TruckTypeComboBox.SelectedText == "") ? e.EquipmentType : TruckTypeComboBox.SelectedText);
+                        e.EquipmentNumber == ((TruckNumberComboBox.Text == "") ? e.EquipmentNumber : TruckNumberComboBox.Text) &&
+                        e.ModelNumber == ((TruckModelNumberComboBox.Text == "") ? e.ModelNumber : TruckModelNumberComboBox.Text) &&
+                        e.SerialNumber == ((TruckSerialNumberComboBox.Text == "") ? e.SerialNumber : TruckSerialNumberComboBox.Text) &&
+                        e.Department == ((TruckDepartmentComboBox.Text == "") ? e.Department : TruckDepartmentComboBox.Text) &&
+                        e.EquipmentOperator == ((TruckOperatorComboBox.Text == "") ? e.EquipmentOperator : TruckOperatorComboBox.Text) &&
+                        e.EquipmentType == ((TruckTypeComboBox.Text == "") ? e.EquipmentType : TruckTypeComboBox.Text);
                 });
 
                 // converts to string
@@ -346,18 +343,18 @@ namespace WorkRequestSystem.Modules
             #endregion
 
             #region Serial Number
-            if (TruckSerialNumberComboBox.SelectedText == "")
+            if (TruckSerialNumberComboBox.Text == "")
             {
                 // Finds equipment that match the search criteria
                 tempequip = DB.EquipmentList.FindAll((Equipment e) =>
                 {
                     return
-                        e.EquipmentNumber == ((TruckNumberComboBox.SelectedText == "") ? e.EquipmentNumber : TruckNumberComboBox.SelectedText) &&
-                        e.ModelNumber == ((TruckModelNumberComboBox.SelectedText == "") ? e.ModelNumber : TruckModelNumberComboBox.SelectedText) &&
-                        e.Brand == ((TruckBrandComboBox.SelectedText == "") ? e.Brand : TruckBrandComboBox.SelectedText) &&
-                        e.Department == ((TruckDepartmentComboBox.SelectedText == "") ? e.Department : TruckDepartmentComboBox.SelectedText) &&
-                        e.EquipmentOperator == ((TruckOperatorComboBox.SelectedText == "") ? e.EquipmentOperator : TruckOperatorComboBox.SelectedText) &&
-                        e.EquipmentType == ((TruckTypeComboBox.SelectedText == "") ? e.EquipmentType : TruckTypeComboBox.SelectedText);
+                        e.EquipmentNumber == ((TruckNumberComboBox.Text == "") ? e.EquipmentNumber : TruckNumberComboBox.Text) &&
+                        e.ModelNumber == ((TruckModelNumberComboBox.Text == "") ? e.ModelNumber : TruckModelNumberComboBox.Text) &&
+                        e.Brand == ((TruckBrandComboBox.Text == "") ? e.Brand : TruckBrandComboBox.Text) &&
+                        e.Department == ((TruckDepartmentComboBox.Text == "") ? e.Department : TruckDepartmentComboBox.Text) &&
+                        e.EquipmentOperator == ((TruckOperatorComboBox.Text == "") ? e.EquipmentOperator : TruckOperatorComboBox.Text) &&
+                        e.EquipmentType == ((TruckTypeComboBox.Text == "") ? e.EquipmentType : TruckTypeComboBox.Text);
                 });
 
                 // converts to string
@@ -372,18 +369,18 @@ namespace WorkRequestSystem.Modules
             #endregion
 
             #region Model Number
-            if (TruckModelNumberComboBox.SelectedText == "")
+            if (TruckModelNumberComboBox.Text == "")
             {
                 // Finds equipment that match the search criteria
                 tempequip = DB.EquipmentList.FindAll((Equipment e) =>
                 {
                     return
-                        e.EquipmentNumber == ((TruckNumberComboBox.SelectedText == "") ? e.EquipmentNumber : TruckNumberComboBox.SelectedText) &&
-                        e.SerialNumber == ((TruckSerialNumberComboBox.SelectedText == "") ? e.SerialNumber : TruckSerialNumberComboBox.SelectedText) &&
-                        e.Brand == ((TruckBrandComboBox.SelectedText == "") ? e.Brand : TruckBrandComboBox.SelectedText) &&
-                        e.Department == ((TruckDepartmentComboBox.SelectedText == "") ? e.Department : TruckDepartmentComboBox.SelectedText) &&
-                        e.EquipmentOperator == ((TruckOperatorComboBox.SelectedText == "") ? e.EquipmentOperator : TruckOperatorComboBox.SelectedText) &&
-                        e.EquipmentType == ((TruckTypeComboBox.SelectedText == "") ? e.EquipmentType : TruckTypeComboBox.SelectedText);
+                        e.EquipmentNumber == ((TruckNumberComboBox.Text == "") ? e.EquipmentNumber : TruckNumberComboBox.Text) &&
+                        e.SerialNumber == ((TruckSerialNumberComboBox.Text == "") ? e.SerialNumber : TruckSerialNumberComboBox.Text) &&
+                        e.Brand == ((TruckBrandComboBox.Text == "") ? e.Brand : TruckBrandComboBox.Text) &&
+                        e.Department == ((TruckDepartmentComboBox.Text == "") ? e.Department : TruckDepartmentComboBox.Text) &&
+                        e.EquipmentOperator == ((TruckOperatorComboBox.Text == "") ? e.EquipmentOperator : TruckOperatorComboBox.Text) &&
+                        e.EquipmentType == ((TruckTypeComboBox.Text == "") ? e.EquipmentType : TruckTypeComboBox.Text);
                 });
 
                 // converts to string
@@ -398,18 +395,18 @@ namespace WorkRequestSystem.Modules
             #endregion
 
             #region Truck Number
-            if (TruckNumberComboBox.SelectedText == "")
+            if (TruckNumberComboBox.Text == "")
             {
                 // Finds equipment that match the search criteria
                 tempequip = DB.EquipmentList.FindAll((Equipment e) =>
                 {
                     return
-                        e.ModelNumber == ((TruckModelNumberComboBox.SelectedText == "") ? e.ModelNumber : TruckModelNumberComboBox.SelectedText) &&
-                        e.SerialNumber == ((TruckSerialNumberComboBox.SelectedText == "") ? e.SerialNumber : TruckSerialNumberComboBox.SelectedText) &&
-                        e.Brand == ((TruckBrandComboBox.SelectedText == "") ? e.Brand : TruckBrandComboBox.SelectedText) &&
-                        e.Department == ((TruckDepartmentComboBox.SelectedText == "") ? e.Department : TruckDepartmentComboBox.SelectedText) &&
-                        e.EquipmentOperator == ((TruckOperatorComboBox.SelectedText == "") ? e.EquipmentOperator : TruckOperatorComboBox.SelectedText) &&
-                        e.EquipmentType == ((TruckTypeComboBox.SelectedText == "") ? e.EquipmentType : TruckTypeComboBox.SelectedText);
+                        e.ModelNumber == ((TruckModelNumberComboBox.Text == "") ? e.ModelNumber : TruckModelNumberComboBox.Text) &&
+                        e.SerialNumber == ((TruckSerialNumberComboBox.Text == "") ? e.SerialNumber : TruckSerialNumberComboBox.Text) &&
+                        e.Brand == ((TruckBrandComboBox.Text == "") ? e.Brand : TruckBrandComboBox.Text) &&
+                        e.Department == ((TruckDepartmentComboBox.Text == "") ? e.Department : TruckDepartmentComboBox.Text) &&
+                        e.EquipmentOperator == ((TruckOperatorComboBox.Text == "") ? e.EquipmentOperator : TruckOperatorComboBox.Text) &&
+                        e.EquipmentType == ((TruckTypeComboBox.Text == "") ? e.EquipmentType : TruckTypeComboBox.Text);
                 });
 
                 // converts to string
@@ -427,12 +424,12 @@ namespace WorkRequestSystem.Modules
 
             #region Parts
 
-            if (PartNameComboBox.SelectedText != "")
+            if (PartNameComboBox.Text != "")
             {
-                if (PartsNumberComboBox.SelectedText == "")
+                if (PartsNumberComboBox.Text == "")
                 {
                     // Finds all parts with the name entered
-                    List<Part> temp = DB.PartList.FindAll((Part p) => { return p.Name == PartNameComboBox.SelectedText; });
+                    List<Part> temp = DB.PartList.FindAll((Part p) => { return p.Name == PartNameComboBox.Text; });
 
                     // Converts to strings
                     List<string> partNumbers = new List<string>(temp.Count);
@@ -447,10 +444,10 @@ namespace WorkRequestSystem.Modules
 
                 // If both are not empty, then do nothing
             }
-            else if(PartsNumberComboBox.SelectedText != "")
+            else if(PartsNumberComboBox.Text != "")
             {
                 // Finds all parts with the number entered
-                List<Part> temp = DB.PartList.FindAll((Part p) => { return p.PartNumber == PartsNumberComboBox.SelectedText; });
+                List<Part> temp = DB.PartList.FindAll((Part p) => { return p.PartNumber == PartsNumberComboBox.Text; });
 
                 // Converts to strings
                 List<string> partNames = new List<string>(temp.Count);
@@ -481,31 +478,31 @@ namespace WorkRequestSystem.Modules
 
             TruckTypeComboBox.AutoCompleteCustomSource = truckTypeAutoComplete;
             if (truckTypeAutoComplete.Count == 1)
-                TruckTypeComboBox.SelectedIndex = DB.EquipmentTypes.FindIndex((string e) => { return e == truckTypeAutoComplete[0]; });
+                TruckTypeComboBox.Text = DB.EquipmentTypes.Find((string e) => { return e == truckTypeAutoComplete[0]; });
 
             TruckBrandComboBox.AutoCompleteCustomSource = truckBrandAutoComplete;
             if (truckBrandAutoComplete.Count == 1)
-                TruckBrandComboBox.SelectedIndex = DB.EquipmentBrands.FindIndex((string e) => { return e == truckBrandAutoComplete[0]; });
+                TruckBrandComboBox.Text = DB.EquipmentBrands.Find((string e) => { return e == truckBrandAutoComplete[0]; });
 
             TruckDepartmentComboBox.AutoCompleteCustomSource = truckDepAutoComplete;
             if (truckDepAutoComplete.Count == 1)
-                TruckDepartmentComboBox.SelectedIndex = DB.EquipmentDepartments.FindIndex((string e) => { return e == truckDepAutoComplete[0]; });
+                TruckDepartmentComboBox.Text = DB.EquipmentDepartments.Find((string e) => { return e == truckDepAutoComplete[0]; });
 
             TruckOperatorComboBox.AutoCompleteCustomSource = truckOperatorAutoComplete;
             if (truckOperatorAutoComplete.Count == 1)
-                TruckOperatorComboBox.SelectedIndex = DB.EquipmentOperators.FindIndex((string e) => { return e == truckOperatorAutoComplete[0]; });
+                TruckOperatorComboBox.Text = DB.EquipmentOperators.Find((string e) => { return e == truckOperatorAutoComplete[0]; });
 
             TruckNumberComboBox.AutoCompleteCustomSource = truckNumAutoComplete;
             if (truckNumAutoComplete.Count == 1)
-                TruckNumberComboBox.SelectedIndex = DB.EquipmentNumbers.FindIndex((string e) => { return e == truckNumAutoComplete[0]; });
+                TruckNumberComboBox.Text = DB.EquipmentNumbers.Find((string e) => { return e == truckNumAutoComplete[0]; });
 
             TruckModelNumberComboBox.AutoCompleteCustomSource = truckModelNumAutoComplete;
             if (truckModelNumAutoComplete.Count == 1)
-                TruckModelNumberComboBox.SelectedIndex = DB.EquipmentModelNumbers.FindIndex((string e) => { return e == truckModelNumAutoComplete[0]; });
+                TruckModelNumberComboBox.Text = DB.EquipmentModelNumbers.Find((string e) => { return e == truckModelNumAutoComplete[0]; });
 
             TruckSerialNumberComboBox.AutoCompleteCustomSource = truckSerialNumAutoComplete;
             if (truckSerialNumAutoComplete.Count == 1)
-                TruckSerialNumberComboBox.SelectedIndex = DB.EquipmentSerialNumbers.FindIndex((string e) => { return e == truckSerialNumAutoComplete[0]; });
+                TruckSerialNumberComboBox.Text = DB.EquipmentSerialNumbers.Find((string e) => { return e == truckSerialNumAutoComplete[0]; });
 
             #endregion
 
@@ -513,11 +510,11 @@ namespace WorkRequestSystem.Modules
 
             PartNameComboBox.AutoCompleteCustomSource = partNameAutoComplete;
             if (partNameAutoComplete.Count == 1)
-                PartNameComboBox.SelectedIndex = DB.PartNames.FindIndex((string e) => { return e == partNameAutoComplete[0]; });
+                PartNameComboBox.Text = DB.PartNames.Find((string e) => { return e == partNameAutoComplete[0]; });
 
             PartsNumberComboBox.AutoCompleteCustomSource = partNumAutoComplete;
             if (partNumAutoComplete.Count == 1)
-                PartsNumberComboBox.SelectedIndex = DB.PartNumbers.FindIndex((string e) => { return e == partNumAutoComplete[0]; });
+                PartsNumberComboBox.Text = DB.PartNumbers.Find((string e) => { return e == partNumAutoComplete[0]; });
 
             #endregion
 
@@ -577,11 +574,11 @@ namespace WorkRequestSystem.Modules
         /// <param name="e"></param>
         private void AddPartBtn_Click(object sender, EventArgs e)
         {
-            if (PartNameComboBox.SelectedText != "")
+            if (PartNameComboBox.Text != "")
             {
-                if (PartsNumberComboBox.SelectedText != "")
+                if (PartsNumberComboBox.Text != "")
                 {
-                    workRequest.PartsList.Add(new Part(PartNameComboBox.SelectedText, PartsNumberComboBox.SelectedText));
+                    workRequest.PartsList.Add(new Part(PartNameComboBox.Text, PartsNumberComboBox.Text));
                     UpdatePartsListbox();
                 }
                 else
@@ -595,43 +592,43 @@ namespace WorkRequestSystem.Modules
 
         private void TruckNumberComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            equipment.EquipmentNumber = TruckNumberComboBox.SelectedText;
+            equipment.EquipmentNumber = TruckNumberComboBox.Text;
             UpdateAutoCompleteLists();
         }
 
         private void TruckBrandComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            equipment.Brand = TruckBrandComboBox.SelectedText;
+            equipment.Brand = TruckBrandComboBox.Text;
             UpdateAutoCompleteLists();
         }
 
         private void TruckTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            equipment.EquipmentType = TruckTypeComboBox.SelectedText;
+            equipment.EquipmentType = TruckTypeComboBox.Text;
             UpdateAutoCompleteLists();
         }
 
         private void TruckSerialNumberComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            equipment.SerialNumber = TruckSerialNumberComboBox.SelectedText;
+            equipment.SerialNumber = TruckSerialNumberComboBox.Text;
             UpdateAutoCompleteLists();
         }
 
         private void TruckModelNumberComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            equipment.ModelNumber = TruckModelNumberComboBox.SelectedText;
+            equipment.ModelNumber = TruckModelNumberComboBox.Text;
             UpdateAutoCompleteLists();
         }
 
         private void TruckDepartmentComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            equipment.Department = TruckDepartmentComboBox.SelectedText;
+            equipment.Department = TruckDepartmentComboBox.Text;
             UpdateAutoCompleteLists();
         }
 
         private void TruckOperatorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            equipment.EquipmentOperator = TruckOperatorComboBox.SelectedText;
+            equipment.EquipmentOperator = TruckOperatorComboBox.Text;
             UpdateAutoCompleteLists();
         }
 
@@ -651,13 +648,13 @@ namespace WorkRequestSystem.Modules
 
         private void PartNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            part.Name = PartNameComboBox.SelectedText;
+            part.Name = PartNameComboBox.Text;
             UpdateAutoCompleteLists();
         }
 
         private void PartsNumberComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            part.PartNumber = PartsNumberComboBox.SelectedText;
+            part.PartNumber = PartsNumberComboBox.Text;
             UpdateAutoCompleteLists();
         }
 
