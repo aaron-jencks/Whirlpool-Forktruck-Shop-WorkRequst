@@ -18,12 +18,24 @@ namespace WorkRequestSystem
     {
         private Database db;
         private RequestForm requestForm;
+        private bool loggedIn;
 
         public Form1()
         {
             db = new Database();
             InitializeComponent();
         }
+
+        protected bool CredentialsCheck()
+        {
+            if(!loggedIn)
+            {
+
+            }
+            return true;
+        }
+
+        #region Form Events
 
         private void NewRequestBtn_Click(object sender, EventArgs e)
         {
@@ -72,5 +84,7 @@ namespace WorkRequestSystem
                 db = Database.ImportFromExcel(openFileDialogExcel.FileName);
             }
         }
+
+        #endregion
     }
 }

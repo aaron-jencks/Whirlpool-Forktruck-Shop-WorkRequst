@@ -56,6 +56,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Login Form\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Login Form\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\RequestForm\Private\Private.cs" />
     <Compile Include="Modules\RequestForm\Private\RequestFormCompletionData.cs" />
     <Compile Include="Modules\RequestForm\RequestForm.cs">
@@ -68,6 +74,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Login Form\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\RequestForm\RequestForm.resx">
       <DependentUpon>RequestForm.cs</DependentUpon>

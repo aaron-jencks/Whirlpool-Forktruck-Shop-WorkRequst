@@ -36,13 +36,16 @@
             this.saveFileDialogExcel = new System.Windows.Forms.SaveFileDialog();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.databaseManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -101,6 +104,20 @@
             this.openFileDialogExcel.FileName = "openFileDialog1";
             this.openFileDialogExcel.Filter = "Excel Workbooks|*.xls";
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.databaseManagementToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // databaseManagementToolStripMenuItem
+            // 
+            this.databaseManagementToolStripMenuItem.Name = "databaseManagementToolStripMenuItem";
+            this.databaseManagementToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.databaseManagementToolStripMenuItem.Text = "Database Management";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -128,6 +145,8 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialogExcel;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialogExcel;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem databaseManagementToolStripMenuItem;
     }
 }
 
