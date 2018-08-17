@@ -369,7 +369,7 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
             Excel.Worksheet partSheet = book.Sheets[2];
             Excel.Worksheet equipmentSheet = book.Sheets[3];
 
-            int wrRow = 2, pRow = 2, eqRow = 2, currentSheet = 4;
+            int currentSheet = 4;
 
             int requestCount = book.Sheets.Count;                           // Total count of all sheets in the workbook
 
@@ -384,7 +384,7 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
                 WorkRequest wr = new WorkRequest();             // Work request object to house the info
 
                 Excel.Worksheet ws = book.Sheets[i];            // Worksheet with the current work request information stored on it
-                wr.Date = ws.Cells[1, 2];// FIX THIS
+                wr.Date = Convert.ToDateTime(ws.Cells[1, 2]);
                 wr.TimeSpent = ws.Cells[1, 4];
 
                 wr.Equipment.EquipmentNumber = ws.Cells[3, 1];
@@ -398,13 +398,71 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
                 wr.WorkDescription = ws.Cells[5, 1];
 
                 // For Loop for parts list goes here
+                for(int j = 8; j < getLastRow(ws); j++)
+                {
+                    Part p = new Part();
+                    p.Name = ws.Cells[j, 2];
+                    p.PartNumber = ws.Cells[j, 1];
+                    wr.PartsList.Add(p);
+                }
+
 
                 db.WorkRequestList.Add(wr);
             }
 
             #endregion
 
+            #region Parts List
+
+            Excel.Worksheet pl = book.Sheets[2];
+            for(int i = 2; i < getLastRow(pl, 1); i++)
+            {
+                Part p = new Part();
+                p.PartNumber = pl.Cells[i, 1];
+                p.Name = pl.Cells[i, 2];
+                db.PartList.Add(p);
+            }
+
+            #endregion
+
+            #region Equipment List
+
+            Excel.Worksheet el = book.Worksheets[3];
+            for(int i = 2; i < getLastRow(el, 2); i++)
+            {
+                Equipment e = new Equipment()
+                {
+                    EquipmentNumber = el.Cells[i, 1],
+                    SerialNumber = el.Cells[i, 2],
+                    ModelNumber = el.Cells[i, 3],
+                    Brand = el.Cells[i, 4],
+                    EquipmentType = el.Cells[i, 5],
+                    Department = el.Cells[i, 6]
+                };
+
+                for(int j = 7; j < getLastColumn(el, i); j++)
+                {
+                    Part p = new Part();
+                    p.PartNumber = el.Cells[i, j];
+                    e.UsableParts.Add(p);
+                }
+            }
+
+            #endregion
+
             return db;
+
+            int getLastRow(Excel.Worksheet ws, int start = 8)
+            {
+                while (ws.Cells[start, 1] != "" && ws.Cells[start++, 2] != "") ;
+                return --start;
+            }
+
+            int getLastColumn(Excel.Worksheet ws, int rowStart = 1, int colStart = 7)
+            {
+                while (ws.Cells[rowStart, colStart++] != "") ;
+                return --colStart;
+            }
         }
 
         /// <summary>

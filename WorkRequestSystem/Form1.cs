@@ -42,5 +42,35 @@ namespace WorkRequestSystem
         {
             Dispose();
         }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialogExcel = new SaveFileDialog();
+            saveFileDialogExcel.FileOk += SaveFileDialogExcel_FileOk;
+            saveFileDialogExcel.ShowDialog();
+        }
+
+        private void SaveFileDialogExcel_FileOk(object sender, CancelEventArgs e)
+        {
+            if(!e.Cancel)
+            {
+                db.ExportToExcel(saveFileDialogExcel.FileName);
+            }
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialogExcel = new OpenFileDialog();
+            openFileDialogExcel.FileOk += OpenFileDialogExcel_FileOk;
+            openFileDialogExcel.ShowDialog();
+        }
+
+        private void OpenFileDialogExcel_FileOk(object sender, CancelEventArgs e)
+        {
+            if(!e.Cancel)
+            {
+                db = Database.ImportFromExcel(openFileDialogExcel.FileName);
+            }
+        }
     }
 }
