@@ -25,6 +25,7 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
         #endregion
 
         private string filePath;
+        private static Excel.Application eApp { get; set; }
 
         #endregion
 
@@ -34,6 +35,13 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
             EquipmentList = new List<Equipment>();
             PartList = new List<Part>();
             WorkRequestList = new List<WorkRequest>();
+
+            if (eApp == null)
+            {
+                // Begins Excel
+                eApp = new Excel.Application();
+                eApp.Visible = false;
+            }
         }
 
         #region Accessor Methods
@@ -329,7 +337,7 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
         #region File Methods
 
         /// <summary>
-        /// Reads in a database from an excel file
+        /// Reads in a database from a file
         /// </summary>
         /// <param name="path">Path pointing to the file</param>
         /// <returns>Returns the database contined in the file</returns>
@@ -348,162 +356,225 @@ namespace DavesMasterWorkOrderRequestDatabase.Classes
         }
 
         /// <summary>
-        /// Exports the current database to an Excel file database
+        /// Reads in a database from an excel file
         /// </summary>
         /// <param name="path">Path pointing to the file</param>
-        public void ExportToText(string path)
+        /// <returns>Returns the database contined in the file</returns>
+        public static Database ImportFromExcel(string path)
         {
             #region Setup
 
-            Excel.Application application = new Excel.Application();    // Application instance of excel
-            application.Visible = false;                                // Suppresses the application from making a visible window
-            application.Workbooks.Add();                                // Adds a new workbook to the list of workbooks
-            Excel.Workbook book = application.ActiveWorkbook;           // Creates the workbook to house the new database
-            Excel.Worksheet workRequestSheet = book.Sheets[1];          // Worksheet for the list of work request descriptions
-            Excel.Worksheet partSheet = book.Sheets[2];                 // Worksheet for the list of parts available
-            Excel.Worksheet equipmentSheet = book.Sheets[3];            // Worksheet for the list of equipment available
+            Excel.Workbook book = eApp.Workbooks.Open(path);                // Opens the excel workbook to be read from
+            Excel.Worksheet workRequestSheet = book.Sheets[1];
+            Excel.Worksheet partSheet = book.Sheets[2];
+            Excel.Worksheet equipmentSheet = book.Sheets[3];
 
-            int wrRow = 2, pRow = 2, eqRow = 2;                         // Row placeholders for the various sheets
+            int wrRow = 2, pRow = 2, eqRow = 2, currentSheet = 4;
 
-            #endregion
+            int requestCount = book.Sheets.Count;                           // Total count of all sheets in the workbook
 
-            #region Work Request storage
-
-            #region List Sheet formatting
-
-            workRequestSheet.Name = "Work Request List";                // Name to show up on the tab down in the bottom of the screen
-
-            // Column headers
-            workRequestSheet.Cells[1, 1] = "Date";
-            workRequestSheet.Cells[1, 2] = "Equipment Number";
-            workRequestSheet.Cells[1, 3] = "Work Description";
-            workRequestSheet.Cells[1, 4] = "Time spent";
+            Database db = new Database(path);                               // Creates a new database object to house the info
 
             #endregion
 
-            foreach(WorkRequest wr in workRequestList)
+            #region Work Requests
+
+            for(int i = currentSheet; i <= requestCount; i++)
             {
-                #region List Sheet
+                WorkRequest wr = new WorkRequest();             // Work request object to house the info
 
-                workRequestSheet.Cells[wrRow, 1] = wr.Date.ToLongDateString();
-                workRequestSheet.Cells[wrRow, 2] = wr.Equipment.EquipmentNumber;
-                workRequestSheet.Cells[wrRow, 3] = wr.WorkDescription;
-                workRequestSheet.Cells[wrRow++, 4] = wr.TimeSpent;
+                Excel.Worksheet ws = book.Sheets[i];            // Worksheet with the current work request information stored on it
+                wr.Date = ws.Cells[1, 2];// FIX THIS
+                wr.TimeSpent = ws.Cells[1, 4];
+
+                wr.Equipment.EquipmentNumber = ws.Cells[3, 1];
+                wr.Equipment.SerialNumber = ws.Cells[3, 2];
+                wr.Equipment.ModelNumber = ws.Cells[3, 3];
+                wr.Equipment.Brand = ws.Cells[3, 4];
+                wr.Equipment.EquipmentType = ws.Cells[3, 5];
+                wr.Equipment.Department = ws.Cells[3, 6];
+                wr.Equipment.EquipmentOperator = ws.Cells[3, 7];
+
+                wr.WorkDescription = ws.Cells[5, 1];
+
+                // For Loop for parts list goes here
+
+                db.WorkRequestList.Add(wr);
+            }
+
+            #endregion
+
+            return db;
+        }
+
+        /// <summary>
+        /// Exports the current database to an Excel file database
+        /// </summary>
+        /// <param name="path">Path pointing to the file</param>
+        /// <returns>Returns a boolean indicator of success.</returns>
+        public bool ExportToExcel(string path)
+        {
+            if (eApp == null)
+            {
+                #region Setup
+
+                eApp.Workbooks.Add();                                       // Adds a new workbook to the list of workbooks
+                Excel.Workbook book = eApp.ActiveWorkbook;                  // Creates the workbook to house the new database
+                Excel.Worksheet workRequestSheet = book.Sheets[1];          // Worksheet for the list of work request descriptions
+                Excel.Worksheet partSheet = book.Sheets[2];                 // Worksheet for the list of parts available
+                Excel.Worksheet equipmentSheet = book.Sheets[3];            // Worksheet for the list of equipment available
+
+                int wrRow = 2, pRow = 2, eqRow = 2;                         // Row placeholders for the various sheets
 
                 #endregion
 
-                #region Personal Sheet
+                #region Work Request storage
 
-                Excel.Worksheet wrSheet = book.Sheets.Add(After: book.Sheets.Count);
+                #region List Sheet formatting
 
-                #region Sheet formatting
+                workRequestSheet.Name = "Work Request List";                // Name to show up on the tab down in the bottom of the screen
 
-                wrSheet.Cells[1, 1] = "Date";
-                wrSheet.Cells[1, 3] = "Time Spent";
-
-                wrSheet.Cells[2, 1] = "Equipment Number";
-                wrSheet.Cells[2, 2] = "Serial Number";
-                wrSheet.Cells[2, 3] = "Model Number";
-                wrSheet.Cells[2, 4] = "Brand";
-                wrSheet.Cells[2, 5] = "Type";
-                wrSheet.Cells[2, 6] = "Department";
-                wrSheet.Cells[2, 7] = "Operator";
-
-                wrSheet.Cells[4, 1] = "Work Description";
-
-                wrSheet.Cells[6, 1] = "Parts Used";
-                wrSheet.Cells[7, 1] = "Part Number";
-                wrSheet.Cells[7, 2] = "Part Name";
+                // Column headers
+                workRequestSheet.Cells[1, 1] = "Date";
+                workRequestSheet.Cells[1, 2] = "Equipment Number";
+                workRequestSheet.Cells[1, 3] = "Work Description";
+                workRequestSheet.Cells[1, 4] = "Time spent";
 
                 #endregion
 
-                #region Data insertion
-
-                wrSheet.Cells[1, 2] = wr.Date.ToLongDateString();
-                wrSheet.Cells[1, 4] = wr.TimeSpent;
-
-                wrSheet.Cells[3, 1] = wr.Equipment.EquipmentNumber;
-                wrSheet.Cells[3, 2] = wr.Equipment.SerialNumber;
-                wrSheet.Cells[3, 3] = wr.Equipment.ModelNumber;
-                wrSheet.Cells[3, 4] = wr.Equipment.Brand;
-                wrSheet.Cells[3, 5] = wr.Equipment.EquipmentType;
-                wrSheet.Cells[3, 6] = wr.Equipment.Department;
-                wrSheet.Cells[3, 7] = wr.Equipment.EquipmentOperator;
-
-                wrSheet.Cells[5, 1] = wr.WorkDescription;
-
-                int wrRowTemp = 8;
-
-                foreach(Part p in wr.PartsList)
+                foreach (WorkRequest wr in workRequestList)
                 {
-                    wrSheet.Cells[wrRowTemp, 1] = p.PartNumber;
-                    wrSheet.Cells[wrRowTemp++, 2] = p.Name;
+                    #region List Sheet
+
+                    workRequestSheet.Cells[wrRow, 1] = wr.Date.ToLongDateString();
+                    workRequestSheet.Cells[wrRow, 2] = wr.Equipment.EquipmentNumber;
+                    workRequestSheet.Cells[wrRow, 3] = wr.WorkDescription;
+                    workRequestSheet.Cells[wrRow++, 4] = wr.TimeSpent;
+
+                    #endregion
+
+                    #region Personal Sheet
+
+                    Excel.Worksheet wrSheet = book.Sheets.Add(After: book.Sheets.Count);
+
+                    #region Sheet formatting
+
+                    wrSheet.Cells[1, 1] = "Date";
+                    wrSheet.Cells[1, 3] = "Time Spent";
+
+                    wrSheet.Cells[2, 1] = "Equipment Number";
+                    wrSheet.Cells[2, 2] = "Serial Number";
+                    wrSheet.Cells[2, 3] = "Model Number";
+                    wrSheet.Cells[2, 4] = "Brand";
+                    wrSheet.Cells[2, 5] = "Type";
+                    wrSheet.Cells[2, 6] = "Department";
+                    wrSheet.Cells[2, 7] = "Operator";
+
+                    wrSheet.Cells[4, 1] = "Work Description";
+
+                    wrSheet.Cells[6, 1] = "Parts Used";
+                    wrSheet.Cells[7, 1] = "Part Number";
+                    wrSheet.Cells[7, 2] = "Part Name";
+
+                    #endregion
+
+                    #region Data insertion
+
+                    wrSheet.Cells[1, 2] = wr.Date.ToLongDateString();
+                    wrSheet.Cells[1, 4] = wr.TimeSpent;
+
+                    wrSheet.Cells[3, 1] = wr.Equipment.EquipmentNumber;
+                    wrSheet.Cells[3, 2] = wr.Equipment.SerialNumber;
+                    wrSheet.Cells[3, 3] = wr.Equipment.ModelNumber;
+                    wrSheet.Cells[3, 4] = wr.Equipment.Brand;
+                    wrSheet.Cells[3, 5] = wr.Equipment.EquipmentType;
+                    wrSheet.Cells[3, 6] = wr.Equipment.Department;
+                    wrSheet.Cells[3, 7] = wr.Equipment.EquipmentOperator;
+
+                    wrSheet.Cells[5, 1] = wr.WorkDescription;
+
+                    int wrRowTemp = 8;
+
+                    foreach (Part p in wr.PartsList)
+                    {
+                        wrSheet.Cells[wrRowTemp, 1] = p.PartNumber;
+                        wrSheet.Cells[wrRowTemp++, 2] = p.Name;
+                    }
+
+                    #endregion
+
+                    #endregion
+                }
+
+                #endregion
+
+                #region Part List Storage
+
+                #region Formatting
+
+                partSheet.Name = "Parts List";
+
+                partSheet.Cells[1, 1] = "Part Number";
+                partSheet.Cells[1, 2] = "Part Name";
+
+                #endregion
+
+                foreach (Part p in partList)
+                {
+                    partSheet.Cells[pRow, 1] = p.PartNumber;
+                    partSheet.Cells[pRow++, 2] = p.Name;
+                }
+
+                #endregion
+
+                #region Equipment List Storage
+
+                #region Formatting
+
+                equipmentSheet.Cells[1, 1] = "Equipment Number";
+                equipmentSheet.Cells[1, 2] = "Serial Number";
+                equipmentSheet.Cells[1, 3] = "Model Number";
+                equipmentSheet.Cells[1, 4] = "Brand";
+                equipmentSheet.Cells[1, 5] = "Type";
+                equipmentSheet.Cells[1, 6] = "Department";
+                equipmentSheet.Cells[1, 7] = "Usable Parts";
+
+                #endregion
+
+                #region Data Insertion
+
+                foreach (Equipment eq in equipmentList)
+                {
+                    equipmentSheet.Cells[eqRow, 1] = eq.EquipmentNumber;
+                    equipmentSheet.Cells[eqRow, 2] = eq.SerialNumber;
+                    equipmentSheet.Cells[eqRow, 3] = eq.ModelNumber;
+                    equipmentSheet.Cells[eqRow, 4] = eq.Brand;
+                    equipmentSheet.Cells[eqRow, 5] = eq.EquipmentType;
+                    equipmentSheet.Cells[eqRow, 6] = eq.Department;
+
+                    int eqCol = 7;
+
+                    foreach (Part p in eq.UsableParts)
+                    {
+                        equipmentSheet.Cells[eqRow, eqCol++] = p.PartNumber;
+                    }
+
+                    eqRow++;
                 }
 
                 #endregion
 
                 #endregion
+
+                #region Saving
+
+                book.SaveAs(path);
+
+                #endregion
+
+                return true;
             }
-
-            #endregion
-
-            #region Part List Storage
-
-            #region Formatting
-
-            partSheet.Name = "Parts List";
-
-            partSheet.Cells[1, 1] = "Part Number";
-            partSheet.Cells[1, 2] = "Part Name";
-
-            #endregion
-
-            foreach(Part p in partList)
-            {
-                partSheet.Cells[pRow, 1] = p.PartNumber;
-                partSheet.Cells[pRow++, 2] = p.Name;
-            }
-
-            #endregion
-
-            #region Equipment List Storage
-
-            #region Formatting
-
-            equipmentSheet.Cells[1, 1] = "Equipment Number";
-            equipmentSheet.Cells[1, 2] = "Serial Number";
-            equipmentSheet.Cells[1, 3] = "Model Number";
-            equipmentSheet.Cells[1, 4] = "Brand";
-            equipmentSheet.Cells[1, 5] = "Type";
-            equipmentSheet.Cells[1, 6] = "Department";
-            equipmentSheet.Cells[1, 7] = "Usable Parts";
-
-            #endregion
-
-            #region Data Insertion
-
-            foreach(Equipment eq in equipmentList)
-            {
-                equipmentSheet.Cells[eqRow, 1] = eq.EquipmentNumber;
-                equipmentSheet.Cells[eqRow, 2] = eq.SerialNumber;
-                equipmentSheet.Cells[eqRow, 3] = eq.ModelNumber;
-                equipmentSheet.Cells[eqRow, 4] = eq.Brand;
-                equipmentSheet.Cells[eqRow, 5] = eq.EquipmentType;
-                equipmentSheet.Cells[eqRow, 6] = eq.Department;
-
-                int eqCol = 7;
-
-                foreach(Part p in eq.UsableParts)
-                {
-                    equipmentSheet.Cells[eqRow, eqCol++] = p.PartNumber;
-                }
-
-                eqRow++;
-            }
-
-            #endregion
-
-            #endregion
+            return false;
         }
 
         #region XML
