@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DavesMasterWorkOrderRequestDatabase.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,17 @@ namespace WorkRequestSystem.Modules
 {
     public partial class DatabaseManagementForm : Form
     {
+        protected Database DB { get; set; } = new Database();
+
         public DatabaseManagementForm()
         {
             InitializeComponent();
+        }
+
+        public DatabaseManagementForm(Database db)
+        {
+            InitializeComponent();
+            DB = db;
         }
 
         private void DatabaseManagementForm_Load(object sender, EventArgs e)

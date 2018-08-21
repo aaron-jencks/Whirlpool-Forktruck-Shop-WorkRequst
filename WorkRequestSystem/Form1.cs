@@ -121,7 +121,8 @@ namespace WorkRequestSystem
         {
             if(CredentialsCheck())
             {
-
+                DatabaseManagementForm form = new DatabaseManagementForm();
+                form.ShowDialog();
             }
         }
 
