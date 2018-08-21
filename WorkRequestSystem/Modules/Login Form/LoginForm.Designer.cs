@@ -1,4 +1,4 @@
-﻿namespace WorkRequestSystem.Modules.Login_Form
+﻿namespace WorkRequestSystem.Modules
 {
     partial class LoginForm
     {

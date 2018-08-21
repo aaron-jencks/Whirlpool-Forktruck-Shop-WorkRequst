@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WorkRequestSystem.Classes;
@@ -30,7 +31,32 @@ namespace WorkRequestSystem
         {
             if(!loggedIn)
             {
+                MessageBox.Show("You must login first!");
 
+                bool complete = false;
+
+                LoginForm form = new LoginForm();
+                form.SuccessEvent += Form_SuccessEvent;
+                form.Disposed += Form_Disposed;
+                form.ShowDialog();
+
+                while (!complete)  // Wait until the dialog box closes
+                {
+                    Thread.Sleep(100);
+                }
+
+                return loggedIn;
+
+                void Form_SuccessEvent(object sender, EventArgs e)
+                {
+                    loggedIn = true;
+                    ((LoginForm)sender).Dispose();
+                }
+
+                void Form_Disposed(object sender, EventArgs e)
+                {
+                    complete = true;
+                }
             }
             return true;
         }
@@ -57,9 +83,12 @@ namespace WorkRequestSystem
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFileDialogExcel = new SaveFileDialog();
-            saveFileDialogExcel.FileOk += SaveFileDialogExcel_FileOk;
-            saveFileDialogExcel.ShowDialog();
+            if (CredentialsCheck())
+            {
+                saveFileDialogExcel = new SaveFileDialog();
+                saveFileDialogExcel.FileOk += SaveFileDialogExcel_FileOk;
+                saveFileDialogExcel.ShowDialog();
+            }
         }
 
         private void SaveFileDialogExcel_FileOk(object sender, CancelEventArgs e)
@@ -72,9 +101,12 @@ namespace WorkRequestSystem
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFileDialogExcel = new OpenFileDialog();
-            openFileDialogExcel.FileOk += OpenFileDialogExcel_FileOk;
-            openFileDialogExcel.ShowDialog();
+            if (CredentialsCheck())
+            {
+                openFileDialogExcel = new OpenFileDialog();
+                openFileDialogExcel.FileOk += OpenFileDialogExcel_FileOk;
+                openFileDialogExcel.ShowDialog();
+            }
         }
 
         private void OpenFileDialogExcel_FileOk(object sender, CancelEventArgs e)
@@ -82,6 +114,14 @@ namespace WorkRequestSystem
             if(!e.Cancel)
             {
                 db = Database.ImportFromExcel(openFileDialogExcel.FileName);
+            }
+        }
+
+        private void databaseManagementToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(CredentialsCheck())
+            {
+
             }
         }
 

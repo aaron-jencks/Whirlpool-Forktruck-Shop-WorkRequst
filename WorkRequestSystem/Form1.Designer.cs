@@ -31,13 +31,13 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.NewRequestBtn = new System.Windows.Forms.Button();
-            this.saveFileDialogExcel = new System.Windows.Forms.SaveFileDialog();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewRequestBtn = new System.Windows.Forms.Button();
+            this.saveFileDialogExcel = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,16 +65,38 @@
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.databaseManagementToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // databaseManagementToolStripMenuItem
+            // 
+            this.databaseManagementToolStripMenuItem.Name = "databaseManagementToolStripMenuItem";
+            this.databaseManagementToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.databaseManagementToolStripMenuItem.Text = "Database Management";
+            this.databaseManagementToolStripMenuItem.Click += new System.EventHandler(this.databaseManagementToolStripMenuItem_Click);
             // 
             // NewRequestBtn
             // 
@@ -92,31 +114,10 @@
             this.saveFileDialogExcel.Filter = "Excel Workbook|*.xls";
             this.saveFileDialogExcel.Tag = "";
             // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.importToolStripMenuItem.Text = "Import";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
-            // 
             // openFileDialogExcel
             // 
             this.openFileDialogExcel.FileName = "openFileDialog1";
             this.openFileDialogExcel.Filter = "Excel Workbooks|*.xls";
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.databaseManagementToolStripMenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
-            // databaseManagementToolStripMenuItem
-            // 
-            this.databaseManagementToolStripMenuItem.Name = "databaseManagementToolStripMenuItem";
-            this.databaseManagementToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-            this.databaseManagementToolStripMenuItem.Text = "Database Management";
             // 
             // Form1
             // 

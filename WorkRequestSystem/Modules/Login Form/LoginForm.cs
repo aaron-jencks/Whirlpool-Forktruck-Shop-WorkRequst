@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WorkRequestSystem.Modules.Login_Form
+namespace WorkRequestSystem.Modules
 {
     public partial class LoginForm : Form
     {
